@@ -25,7 +25,7 @@ const PokemonForm = ({ setFormVisible }) => {
   };
 
   return (
-    <div className='card'>
+    <div id='pokemonForm' className='card'>
       <form onSubmit={handleSubmit} className='new-pokemon'>
         <p>Nuevo Pokemon</p>
 

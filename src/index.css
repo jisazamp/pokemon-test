@@ -21,6 +21,11 @@ label span {
   color: #757ce8;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .card {
   margin: 1em 0;
   border: 1px solid #cacaca;
@@ -137,9 +142,20 @@ label span {
   overflow: auto;
 }
 
+.pokemon-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.pokemon-actions svg {
+  color: #757ce8;
+  cursor: pointer;
+  font-size: 20px;
+}
+
 @media (min-width: 40rem) {
   .pokemon-table {
-    margin: auto;
+    margin: 0rem auto 4rem auto;
     width: 100%;
   }
 }
