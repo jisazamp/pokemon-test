@@ -1,68 +1,22 @@
+import { useState } from 'react';
+
+import PokemonOptions from '../components/PokemonOptions';
+import PokemonTable from '../components/PokemonTable';
+import PokemonForm from '../components/PokemonForm';
+
 const Home = () => {
+  const [formVisible, setFormVisible] = useState(false);
+
   return (
-    <div>
+    <main className='container'>
       <p>Listado de Pokemon</p>
 
-      <div>
-        <form>
-          <input type='text' placeholder='Buscar' />
-        </form>
+      <PokemonOptions setFormVisible={setFormVisible} />
 
-        <button>Nuevo</button>
-      </div>
+      <PokemonTable />
 
-      <table>
-        <thead>
-          <tr>
-            <th scope='col'>Nombre</th>
-            <th scope='col'>Imagen</th>
-            <th scope='col'>Ataque</th>
-            <th scope='col'>Defensa</th>
-            <th scope='col'>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td scope='row'>Ivysaur</td>
-            <td>Imagen</td>
-            <td>65</td>
-            <td>38</td>
-            <td>Editar borrar</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div>
-        <form>
-          <p>Nuevo Pokemon</p>
-
-          <div>
-            <label htmlFor='name'></label>
-            <input id='name' type='text' placeholder='Nombre' />
-          </div>
-
-          <div>
-            <label htmlFor='image'></label>
-            <input id='image' type='text' placeholder='url' />
-          </div>
-
-          <div>
-            <label htmlFor='attack'></label>
-            <input type='range' min='0' max='100' class='slider' id='attack' />
-          </div>
-
-          <div>
-            <label htmlFor='defense'></label>
-            <input type='range' min='0' max='100' class='slider' id='defense' />
-          </div>
-
-          <div>
-            <button>Guardar</button>
-            <button>Cancelar</button>
-          </div>
-        </form>
-      </div>
-    </div>
+      {formVisible && <PokemonForm setFormVisible={setFormVisible} />}
+    </main>
   );
 };
 

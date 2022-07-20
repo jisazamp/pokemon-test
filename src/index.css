@@ -1,0 +1,103 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  margin: 1em 0;
+  border: 1px solid #cacaca;
+  padding: 1em;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  padding: 0.8em 1em;
+  border-radius: 5px;
+}
+
+.btn-group {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #757ce8;
+}
+
+.action-icon {
+  font-size: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  max-width: 60rem;
+}
+
+.pokemon-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.pokemon-form {
+  position: relative;
+}
+
+.pokemon-search {
+  width: 100%;
+  padding: 0.8em 2em 0.8em 2.5em;
+}
+
+#search {
+  color: #cacaca;
+}
+
+.input-icon {
+  position: absolute;
+  top: 30%;
+  left: 2.5%;
+}
+
+.pokemon-table {
+  overflow: auto;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table,
+th,
+td {
+  margin-top: 16px;
+  border: 1px solid #cacaca;
+  padding: 0.5em 1em;
+}
+
+td {
+  text-align: left;
+}
+
+.new-pokemon {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-pokemon p {
+  text-align: center;
+}
