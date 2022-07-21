@@ -30,6 +30,17 @@ export const addPokemon = async (pokemon) => {
   }
 };
 
+// Delete pokemon by id
+export const deletePokemon = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Search characters by name
 export const searchCharacterByName = async (name) => {
   try {

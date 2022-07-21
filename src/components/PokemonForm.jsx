@@ -17,7 +17,7 @@ const PokemonForm = ({ setFormVisible }) => {
   });
   const { name, image, attack, defense } = pokemon;
 
-  const { loading, dispatch } = useContext(PokemonContext);
+  const { dispatch } = useContext(PokemonContext);
 
   const handleInputChange = async (e) => {
     setPokemon({ ...pokemon, [e.target.id]: e.target.value });
@@ -31,7 +31,7 @@ const PokemonForm = ({ setFormVisible }) => {
 
     const addPokemonData = async (pokemon) => {
       const response = await addPokemon(pokemon);
-      console.log(response);
+      dispatch({ type: 'ADD_POKEMON', payload: response });
     };
 
     await addPokemonData(pokemon);

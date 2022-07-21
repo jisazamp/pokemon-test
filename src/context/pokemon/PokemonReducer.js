@@ -10,6 +10,15 @@ const pokemonReducer = (state, action) => {
         loading: false,
       };
 
+    case 'DELETE_POKEMON':
+      const newPokemons = state.pokemon.filter((p) => p.id !== action.payload);
+
+      return {
+        ...state,
+        pokemon: newPokemons,
+        loading: false,
+      };
+
     case 'SEARCH_POKEMON':
       return { ...state, filteredPokemon: action.payload, loading: false };
 

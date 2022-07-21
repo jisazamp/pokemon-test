@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import PokemonContext from '../context/pokemon/PokemonContext';
-import { getPokemon } from '../context/pokemon/PokemonActions';
+import { getPokemon, deletePokemon } from '../context/pokemon/PokemonActions';
 
 const PokemonTable = () => {
   const { pokemon, loading, dispatch } = useContext(PokemonContext);
@@ -14,6 +14,17 @@ const PokemonTable = () => {
   const getPokemonData = async () => {
     const pokemonData = await getPokemon();
     dispatch({ type: 'GET_POKEMON', payload: pokemonData });
+  };
+
+  const handlePokemonDelete = async (id) => {
+    const deleteConfirmation = confirm(
+      '¿Está seguro que desea eliminar este pokemon?'
+    );
+
+    if (!deleteConfirmation) return;
+
+    deletePokemon(id);
+    dispatch({ type: 'DELETE_POKEMON', payload: id });
   };
 
   if (loading) {
@@ -43,8 +54,8 @@ const PokemonTable = () => {
               <td>{p.defense}</td>
               <td>
                 <div className='pokemon-actions'>
-                  <FaEdit />
-                  <FaTrash />
+                  <FaEdit onClick={() => console.log('Edit')} />
+                  <FaTrash onClick={() => handlePokemonDelete(p.id)} />
                 </div>
               </td>
             </tr>
