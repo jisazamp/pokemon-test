@@ -41,6 +41,34 @@ export const deletePokemon = async (id) => {
   }
 };
 
+// Set edit pokemon
+export const setEditPokemon = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`);
+
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Confirm pokemon edit
+export const editPokemonData = async (pokemon) => {
+  try {
+    const response = await fetch(`${API_URL}/${pokemon.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(pokemon),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Search characters by name
 export const searchCharacterByName = async (name) => {
   try {

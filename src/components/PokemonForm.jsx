@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import PokemonContext from '../context/pokemon/PokemonContext';
-import { addPokemon } from '../context/pokemon/PokemonActions';
+import { addPokemon, editPokemonData } from '../context/pokemon/PokemonActions';
 import PropTypes from 'prop-types';
 import { FaTimes, FaSave } from 'react-icons/fa';
 import Button from '../common/Button';
@@ -16,8 +16,13 @@ const PokemonForm = ({ setFormVisible }) => {
     idAuthor: 1,
   });
   const { name, image, attack, defense } = pokemon;
+  const { dispatch, editPokemon } = useContext(PokemonContext);
 
-  const { dispatch } = useContext(PokemonContext);
+  useEffect(() => {
+    if (Object.keys(editPokemon).length > 0) {
+      setPokemon({ ...editPokemon, idAuthor: 1 });
+    }
+  }, [editPokemon]);
 
   const handleInputChange = async (e) => {
     setPokemon({ ...pokemon, [e.target.id]: e.target.value });
@@ -29,12 +34,18 @@ const PokemonForm = ({ setFormVisible }) => {
     if (name.length < 2 || image.length === 0)
       return console.error('Debe proveer un nombre y una imagen');
 
-    const addPokemonData = async (pokemon) => {
-      const response = await addPokemon(pokemon);
-      dispatch({ type: 'ADD_POKEMON', payload: response });
-    };
+    if (Object.keys(editPokemon).length > 0) {
+      const data = await editPokemonData(pokemon);
+      dispatch({ type: 'EDIT_POKEMON', payload: data });
+    } else {
+      const addPokemonData = async (pokemon) => {
+        const response = await addPokemon(pokemon);
+        dispatch({ type: 'ADD_POKEMON', payload: response });
+      };
 
-    await addPokemonData(pokemon);
+      await addPokemonData(pokemon);
+    }
+
     setFormVisible(false);
     setPokemon({
       name: '',
@@ -118,12 +129,13 @@ const PokemonForm = ({ setFormVisible }) => {
           <Button
             disabled={name.length < 2 || image.length === 0}
             type='submit'
-            label='Guardar'
+            label={Object.keys(editPokemon).length > 0 ? 'Editar' : 'Guardar'}
             icon={<FaSave className='action-icon' />}
           />
           <Button
             action={() => {
               setFormVisible(false);
+              dispatch({ type: 'SET_EDIT_POKEMON', payload: {} });
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             label='Cancelar'

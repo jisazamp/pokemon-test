@@ -7,6 +7,7 @@ const pokemonReducer = (state, action) => {
       return {
         ...state,
         pokemon: [...state.pokemon, action.payload],
+        editPokemon: {},
         loading: false,
       };
 
@@ -16,8 +17,26 @@ const pokemonReducer = (state, action) => {
       return {
         ...state,
         pokemon: newPokemons,
+        editPokemon: {},
         loading: false,
       };
+
+    case 'EDIT_POKEMON':
+      const editedPokemons = state.pokemon.map((p) =>
+        action.payload.id === p.id ? action.payload : p
+      );
+
+      return {
+        ...state,
+        pokemon: editedPokemons,
+        editPokemon: {},
+        loading: false,
+      };
+
+      return;
+
+    case 'SET_EDIT_POKEMON':
+      return { ...state, editPokemon: action.payload };
 
     case 'SEARCH_POKEMON':
       return { ...state, filteredPokemon: action.payload, loading: false };

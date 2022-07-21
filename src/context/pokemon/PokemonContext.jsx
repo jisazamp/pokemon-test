@@ -6,6 +6,7 @@ const PokemonContext = createContext();
 export const PokemonProvider = ({ children }) => {
   const initialState = {
     pokemon: [],
+    editPokemon: {},
     filteredPokemon: [],
     loading: false,
   };

@@ -1,9 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import PokemonContext from '../context/pokemon/PokemonContext';
-import { getPokemon, deletePokemon } from '../context/pokemon/PokemonActions';
+import {
+  getPokemon,
+  deletePokemon,
+  setEditPokemon,
+} from '../context/pokemon/PokemonActions';
 
-const PokemonTable = () => {
+const PokemonTable = ({ setFormVisible }) => {
   const { pokemon, loading, dispatch } = useContext(PokemonContext);
 
   useEffect(() => {
@@ -31,6 +35,12 @@ const PokemonTable = () => {
     return <p>Loading...</p>;
   }
 
+  const handlePokemonEdit = async (id) => {
+    const editPokemon = await setEditPokemon(id);
+    await dispatch({ type: 'SET_EDIT_POKEMON', payload: editPokemon });
+    await setFormVisible(true);
+  };
+
   return (
     <div className='pokemon-table'>
       <table className='table'>
@@ -54,7 +64,7 @@ const PokemonTable = () => {
               <td>{p.defense}</td>
               <td>
                 <div className='pokemon-actions'>
-                  <FaEdit onClick={() => console.log('Edit')} />
+                  <FaEdit onClick={() => handlePokemonEdit(p.id)} />
                   <FaTrash onClick={() => handlePokemonDelete(p.id)} />
                 </div>
               </td>

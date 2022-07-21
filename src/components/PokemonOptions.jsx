@@ -12,11 +12,8 @@ const PokemonOptions = ({ setFormVisible }) => {
       </form>
 
       <Button
-        action={async () => {
-          await setFormVisible(true);
-          document
-            .getElementById('pokemonForm')
-            .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        action={() => {
+          setFormVisible(true);
         }}
         label='Nuevo'
         icon={<FaPlus className='action-icon' />}

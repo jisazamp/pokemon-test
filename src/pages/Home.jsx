@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import PokemonOptions from '../components/PokemonOptions';
 import PokemonTable from '../components/PokemonTable';
 import PokemonForm from '../components/PokemonForm';
+import { FaWindows } from 'react-icons/fa';
 
 const Home = () => {
   const [formVisible, setFormVisible] = useState(false);
+
+  useEffect(() => {
+    if (formVisible)
+      document
+        .getElementById('pokemonForm')
+        .scrollIntoView({ behavior: 'smooth' });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [formVisible]);
 
   return (
     <main className='container'>
@@ -13,7 +22,7 @@ const Home = () => {
 
       <PokemonOptions setFormVisible={setFormVisible} />
 
-      <PokemonTable />
+      <PokemonTable setFormVisible={setFormVisible} />
 
       {formVisible && <PokemonForm setFormVisible={setFormVisible} />}
     </main>
