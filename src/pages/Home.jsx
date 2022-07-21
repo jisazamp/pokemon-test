@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import PokemonOptions from '../components/PokemonOptions';
 import PokemonTable from '../components/PokemonTable';
 import PokemonForm from '../components/PokemonForm';
-import { FaWindows } from 'react-icons/fa';
 
 const Home = () => {
   const [formVisible, setFormVisible] = useState(false);

@@ -8,7 +8,8 @@ import {
 } from '../context/pokemon/PokemonActions';
 
 const PokemonTable = ({ setFormVisible }) => {
-  const { pokemon, loading, dispatch } = useContext(PokemonContext);
+  const { pokemon, filteredPokemon, loading, dispatch } =
+    useContext(PokemonContext);
 
   useEffect(() => {
     dispatch({ type: 'SET_LOADING' });
@@ -31,15 +32,15 @@ const PokemonTable = ({ setFormVisible }) => {
     dispatch({ type: 'DELETE_POKEMON', payload: id });
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   const handlePokemonEdit = async (id) => {
     const editPokemon = await setEditPokemon(id);
     await dispatch({ type: 'SET_EDIT_POKEMON', payload: editPokemon });
     await setFormVisible(true);
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className='pokemon-table'>
@@ -54,22 +55,49 @@ const PokemonTable = ({ setFormVisible }) => {
           </tr>
         </thead>
         <tbody>
-          {pokemon?.map((p) => (
-            <tr key={p.id}>
-              <td scope='row'>{p.name}</td>
-              <td style={{ textAlign: 'center' }}>
-                <img src={p.image} alt='Pokemon' width='96px' height='auto' />
-              </td>
-              <td>{p.attack}</td>
-              <td>{p.defense}</td>
-              <td>
-                <div className='pokemon-actions'>
-                  <FaEdit onClick={() => handlePokemonEdit(p.id)} />
-                  <FaTrash onClick={() => handlePokemonDelete(p.id)} />
-                </div>
-              </td>
-            </tr>
-          ))}
+          {filteredPokemon?.length > 0
+            ? filteredPokemon?.map((p) => (
+                <tr key={p.id}>
+                  <td scope='row'>{p.name}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    <img
+                      src={p.image}
+                      alt='Pokemon'
+                      width='96px'
+                      height='auto'
+                    />
+                  </td>
+                  <td>{p.attack}</td>
+                  <td>{p.defense}</td>
+                  <td>
+                    <div className='pokemon-actions'>
+                      <FaEdit onClick={() => handlePokemonEdit(p.id)} />
+                      <FaTrash onClick={() => handlePokemonDelete(p.id)} />
+                    </div>
+                  </td>
+                </tr>
+              ))
+            : pokemon?.map((p) => (
+                <tr key={p.id}>
+                  <td scope='row'>{p.name}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    <img
+                      src={p.image}
+                      alt='Pokemon'
+                      width='96px'
+                      height='auto'
+                    />
+                  </td>
+                  <td>{p.attack}</td>
+                  <td>{p.defense}</td>
+                  <td>
+                    <div className='pokemon-actions'>
+                      <FaEdit onClick={() => handlePokemonEdit(p.id)} />
+                      <FaTrash onClick={() => handlePokemonDelete(p.id)} />
+                    </div>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>

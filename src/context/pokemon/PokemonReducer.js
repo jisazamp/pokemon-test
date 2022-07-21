@@ -33,8 +33,6 @@ const pokemonReducer = (state, action) => {
         loading: false,
       };
 
-      return;
-
     case 'SET_EDIT_POKEMON':
       return { ...state, editPokemon: action.payload };
 
