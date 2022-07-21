@@ -65,6 +65,12 @@ a {
   transition: background-color 200ms;
 }
 
+.btn-primary-disabled {
+  opacity: 30%;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media (min-width: 40rem) {
   .btn-primary:hover {
     background-color: #747ad3;
@@ -155,7 +161,7 @@ a {
 
 @media (min-width: 40rem) {
   .pokemon-table {
-    margin: 0rem auto 4rem auto;
+    margin: 0rem auto 1rem auto;
     width: 100%;
   }
 }

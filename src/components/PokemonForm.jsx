@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import PokemonContext from '../context/pokemon/PokemonContext';
+import { addPokemon } from '../context/pokemon/PokemonActions';
 import PropTypes from 'prop-types';
 import { FaTimes, FaSave } from 'react-icons/fa';
-
 import Button from '../common/Button';
 
 const PokemonForm = ({ setFormVisible }) => {
@@ -10,18 +11,40 @@ const PokemonForm = ({ setFormVisible }) => {
     image: '',
     attack: '10',
     defense: '10',
+    hp: 100,
+    type: 'fire',
+    idAuthor: 1,
   });
-
   const { name, image, attack, defense } = pokemon;
 
-  const handleInputChange = (e) => {
+  const { loading, dispatch } = useContext(PokemonContext);
+
+  const handleInputChange = async (e) => {
     setPokemon({ ...pokemon, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submitted');
+
+    if (name.length < 2 || image.length === 0)
+      return console.error('Debe proveer un nombre y una imagen');
+
+    const addPokemonData = async (pokemon) => {
+      const response = await addPokemon(pokemon);
+      console.log(response);
+    };
+
+    await addPokemonData(pokemon);
     setFormVisible(false);
+    setPokemon({
+      name: '',
+      image: '',
+      attack: '10',
+      defense: '10',
+      hp: 100,
+      type: 'fire',
+      idAuthor: 1,
+    });
   };
 
   return (
@@ -93,12 +116,16 @@ const PokemonForm = ({ setFormVisible }) => {
 
         <div className='btn-group'>
           <Button
+            disabled={name.length < 2 || image.length === 0}
             type='submit'
             label='Guardar'
             icon={<FaSave className='action-icon' />}
           />
           <Button
-            action={() => setFormVisible(false)}
+            action={() => {
+              setFormVisible(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             label='Cancelar'
             icon={<FaTimes className='action-icon' />}
           />

@@ -3,6 +3,13 @@ const pokemonReducer = (state, action) => {
     case 'GET_POKEMON':
       return { ...state, pokemon: action.payload, loading: false };
 
+    case 'ADD_POKEMON':
+      return {
+        ...state,
+        pokemon: [...state.pokemon, action.payload],
+        loading: false,
+      };
+
     case 'SEARCH_POKEMON':
       return { ...state, filteredPokemon: action.payload, loading: false };
 
